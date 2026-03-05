@@ -1,3 +1,4 @@
+
 # Instalacja i ładowanie wymaganych pakietów ----
 # install.packages(c("tm", "wordcloud", "RColorBrewer", "ggplot2"))
 library(tm)
@@ -43,33 +44,9 @@ plot_wordcloud <- function(freq_df, title, color_palette = "Dark2") {
 # Przykładowe użycie funkcji ----
 
 
-
-
-# Potrzeba dodatkowych stop słów do usunięcia ----
-custom_stopwords <- c("—", "–", "’s", "’re")
-
-
-# Usunięcie dodatkowych stop słów z przetworzonego tekstu 
-# za pomocą indeksowania logicznego
-words <- words[!words %in% custom_stopwords]
-
-# Obliczenie częstości występowania słów
-freq_df <- word_frequency(words)
-
-# Tworzenie chmury słów
-plot_wordcloud(freq_df, "Chmura słów", "Dark2")
-
-# Wyświetlenie 10 najczęściej występujących słów
-print(head(freq_df, 10))
-
-
-
-
 # Dwa pliki txt równocześnie ----
-
-file_paths <- c("Biden2021.txt", "Biden2024.txt") 
-
-custom_stopwords <- c("—", "–", "’s", "’re", "'ve", "'m")
+file_paths <- c("Biden2021.txt", "Biden2024.txt")
+custom_stopwords <- c("’m","’ve","’re","’s","’d","’ll","’t","’nt", "—", "–")
 
 for (file_path in file_paths) {
   words <- process_text(file_path)
@@ -79,16 +56,19 @@ for (file_path in file_paths) {
   cat("Najczęściej występujące słowa w pliku", file_path, ":\n")
   print(head(freq_df, 10))
   cat("\n")
+  top10 <- head(freq_df, 10)
+  print(
+    ggplot(top10, aes(x = reorder(word, freq), y = freq)) +
+      geom_col(fill = "steelblue", color = "white") +
+      coord_flip() +
+      labs(
+        title = paste ("Częstość wystepowania top 10 słów -", file_path ),
+        x = "Słowa",
+        y = "Częstość"
+      ) +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(hjust = 0.5)
+      )
+  )
 }
-
-ggplot(kraje, aes(x = Region)) +
-  geom_bar(fill = "steelblue", color = "white") +
-  labs(
-    title = "Liczba krajów w regionach świata",
-    x = "Region",
-    y = "Liczba krajów"
-  ) +
-  theme_minimal() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
-    plot.title = element_text(hjust = 0.5))
