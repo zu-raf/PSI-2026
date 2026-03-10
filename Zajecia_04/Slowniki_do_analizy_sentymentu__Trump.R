@@ -78,9 +78,9 @@ ggplot(word_counts, aes(x=word2, y=n, fill=sentiment)) +
   geom_col(show.legend=FALSE) +
   facet_wrap(~sentiment, scales="free") +
   coord_flip() +
-  labs(x = "S³owa", y = "Liczba") +
+  labs(x = "SÂ³owa", y = "Liczba") +
   theme_gdocs() + 
-  ggtitle("Liczba s³ów wg sentymentu (Loughran)") +
+  ggtitle("Liczba sÂ³Ã³w wg sentymentu (Loughran)") +
   scale_fill_manual(values = c("firebrick", "darkolivegreen4"))
 
 sentiment_review_nrc <- tidy_tokeny %>%
@@ -114,9 +114,9 @@ ggplot(word_counts_nrc2, aes(x=word2, y=n, fill=sentiment)) +
   geom_col(show.legend=FALSE) +
   facet_wrap(~sentiment, scales="free") +
   coord_flip() +
-  labs(x = "S³owa", y = "Liczba") +
+  labs(x = "SÂ³owa", y = "Liczba") +
   theme_gdocs() + 
-  ggtitle("Liczba s³ów wg sentymentu (NRC)")
+  ggtitle("Liczba sÂ³Ã³w wg sentymentu (NRC)")
 
 
 
@@ -152,9 +152,9 @@ ggplot(word_counts_bing2, aes(x=word2, y=n, fill=sentiment)) +
   geom_col(show.legend=FALSE) +
   facet_wrap(~sentiment, scales="free") +
   coord_flip() +
-  labs(x = "S³owa", y = "Liczba") +
+  labs(x = "SÂ³owa", y = "Liczba") +
   theme_gdocs() + 
-  ggtitle("Liczba s³ów wg sentymentu (Bing)") +
+  ggtitle("Liczba sÂ³Ã³w wg sentymentu (Bing)") +
   scale_fill_manual(values = c("dodgerblue4", "goldenrod1"))
 
 
@@ -189,9 +189,9 @@ ggplot(word_counts_afinn3, aes(x=word2, y=n, fill=value)) +
   geom_col(show.legend=FALSE) +
   facet_wrap(~value, scales="free") +
   coord_flip() +
-  labs(x = "S³owa", y = "Liczba") +
+  labs(x = "SÂ³owa", y = "Liczba") +
   theme_gdocs() + 
-  ggtitle("Liczba s³ów wg sentymentu (AFINN)")
+  ggtitle("Liczba sÂ³Ã³w wg sentymentu (AFINN)")
 
 
 
