@@ -8,7 +8,7 @@ library(tidyverse)
 
 
 
-# Jeden ca³y plik ----
+# Jeden caÂ³y plik ----
 
 # Wczytanie danych tekstowych
 # Odczytanie lokalnego pliku .txt
@@ -16,17 +16,17 @@ text <- readLines(file.choose(), encoding="UTF-8")
 
 
 
-# Usuniêcie pustych wierszy
+# UsuniÃªcie pustych wierszy
 non_empty_lines <- text[nzchar(text)]
 
 
-# Po³¹czenie wszystkich wierszy w jeden ci¹g znaków
+# PoÂ³Â¹czenie wszystkich wierszy w jeden ciÂ¹g znakÃ³w
 full_text <- paste(non_empty_lines, collapse = " ")
 
-# Usuniêcie zbêdnych spacji
+# UsuniÃªcie zbÃªdnych spacji
 full_text <- gsub("\\s+", " ", full_text)
 
-# Funkcja do dzielenia tekstu na segmenty o okreœlonej d³ugoœci
+# Funkcja do dzielenia tekstu na segmenty o okreÅ“lonej dÂ³ugoÅ“ci
 split_text_into_chunks <- function(text, chunk_size) {
   start_positions <- seq(1, nchar(text), by = chunk_size)
   chunks <- substring(text, start_positions, start_positions + chunk_size - 1)
@@ -37,17 +37,17 @@ split_text_into_chunks <- function(text, chunk_size) {
 
 # Podzielenie tekstu na segmenty
 #
-# ustaw min_lentgh jako jednolit¹ d³ugoœæ jednego segmentu
+# ustaw min_lentgh jako jednolitÂ¹ dÂ³ugoÅ“Ã¦ jednego segmentu
 min_length <- 50
 text_chunks <- split_text_into_chunks(full_text, min_length)
 
 
-# Wyœwietlenie wynikowych segmentów
+# WyÅ“wietlenie wynikowych segmentÃ³w
 print(text_chunks)
 
 
 
-# Analiza sentymentu przy u¿yciu pakietu SentimentAnalysis ----
+# Analiza sentymentu przy uÂ¿yciu pakietu SentimentAnalysis ----
 sentiment <- analyzeSentiment(text_chunks)
 
 
@@ -57,22 +57,22 @@ sentiment <- analyzeSentiment(text_chunks)
 
 
 
-### S³ownik GI (General Inquirer) ----
+### SÂ³ownik GI (General Inquirer) ----
 #
-# S³ownik ogólnego zastosowania
-# zawiera listê s³ów pozytywnych i negatywnych
-# zgodnych z psychologicznym s³ownikiem harwardzkim Harvard IV-4
+# SÂ³ownik ogÃ³lnego zastosowania
+# zawiera listÃª sÂ³Ã³w pozytywnych i negatywnych
+# zgodnych z psychologicznym sÂ³ownikiem harwardzkim Harvard IV-4
 # DictionaryGI
 
 
-# Wczytaj s³ownik GI
+# Wczytaj sÂ³ownik GI
 data(DictionaryGI)
 summary(DictionaryGI)
 
 
-# Konwersja ci¹g³ych wartoœci sentymentu 
-# na odpowiadaj¹ce im wartoœci kierunkowe 
-# zgodnie ze s³ownikiem GI
+# Konwersja ciÂ¹gÂ³ych wartoÅ“ci sentymentu 
+# na odpowiadajÂ¹ce im wartoÅ“ci kierunkowe 
+# zgodnie ze sÂ³ownikiem GI
 sentimentGI <- convertToDirection(sentiment$SentimentGI)
 
 
@@ -80,13 +80,13 @@ sentimentGI <- convertToDirection(sentiment$SentimentGI)
 plot(sentimentGI)
 
 
-# Analiza sentymentu przy u¿yciu pakietu SentimentAnalysis ----
-# Analiza sentymentu przy u¿yciu pakietu SentimentAnalysis ----
+# Analiza sentymentu przy uÂ¿yciu pakietu SentimentAnalysis ----
+# Analiza sentymentu przy uÂ¿yciu pakietu SentimentAnalysis ----
 # Ten sam wykres w ggplot2:
 # Konwersja do ramki danych (ggplot wizualizuje ramki danych)
 df_GI <- data.frame(index = seq_along(sentimentGI), value = sentimentGI, Dictionary = "GI")
 
-# Usuniêcie wierszy, które zawieraj¹ NA
+# UsuniÃªcie wierszy, ktÃ³re zawierajÂ¹ NA
 df_GI <- na.omit(df_GI)
 
 ggplot(df_GI, aes(x = value)) +
@@ -99,23 +99,23 @@ ggplot(df_GI, aes(x = value)) +
 
 
 
-### S³ownik HE (Henry’s Financial dictionary) ----
+### SÂ³ownik HE (Henryâ€™s Financial dictionary) ----
 #
-# zawiera listê s³ów pozytywnych i negatywnych
-# zgodnych z finansowym s³ownikiem "Henry 2008"
-# pierwszy, jaki powsta³ w wyniku analizy komunikatów prasowych 
-# dotycz¹cych zysków w bran¿y telekomunikacyjnej i us³ug IT
+# zawiera listÃª sÂ³Ã³w pozytywnych i negatywnych
+# zgodnych z finansowym sÂ³ownikiem "Henry 2008"
+# pierwszy, jaki powstaÂ³ w wyniku analizy komunikatÃ³w prasowych 
+# dotyczÂ¹cych zyskÃ³w w branÂ¿y telekomunikacyjnej i usÂ³ug IT
 # DictionaryHE
 
 
-# Wczytaj s³ownik HE
+# Wczytaj sÂ³ownik HE
 data(DictionaryHE)
 summary(DictionaryHE)
 
 
-# Konwersja ci¹g³ych wartoœci sentymentu 
-# na odpowiadaj¹ce im wartoœci kierunkowe 
-# zgodnie ze s³ownikiem HE
+# Konwersja ciÂ¹gÂ³ych wartoÅ“ci sentymentu 
+# na odpowiadajÂ¹ce im wartoÅ“ci kierunkowe 
+# zgodnie ze sÂ³ownikiem HE
 sentimentHE <- convertToDirection(sentiment$SentimentHE)
 
 
@@ -127,7 +127,7 @@ plot(sentimentHE)
 # Konwersja do ramki danych (ggplot wizualizuje ramki danych)
 df_HE <- data.frame(index = seq_along(sentimentHE), value = sentimentHE, Dictionary = "HE")
 
-# Usuniêcie wierszy, które zawieraj¹ NA
+# UsuniÃªcie wierszy, ktÃ³re zawierajÂ¹ NA
 df_HE <- na.omit(df_HE)
 
 ggplot(df_HE, aes(x = value)) +
@@ -140,21 +140,21 @@ ggplot(df_HE, aes(x = value)) +
 
 
 
-### S³ownik LM (Loughran-McDonald Financial dictionary) ----
+### SÂ³ownik LM (Loughran-McDonald Financial dictionary) ----
 #
-# zawiera listê s³ów pozytywnych i negatywnych oraz zwi¹zanych z niepewnoœci¹
-# zgodnych z finansowym s³ownikiem Loughran-McDonald
+# zawiera listÃª sÂ³Ã³w pozytywnych i negatywnych oraz zwiÂ¹zanych z niepewnoÅ“ciÂ¹
+# zgodnych z finansowym sÂ³ownikiem Loughran-McDonald
 # DictionaryLM
 
 
-# Wczytaj s³ownik LM
+# Wczytaj sÂ³ownik LM
 data(DictionaryLM)
 summary(DictionaryLM)
 
 
-# Konwersja ci¹g³ych wartoœci sentymentu 
-# na odpowiadaj¹ce im wartoœci kierunkowe 
-# zgodnie ze s³ownikiem LM
+# Konwersja ciÂ¹gÂ³ych wartoÅ“ci sentymentu 
+# na odpowiadajÂ¹ce im wartoÅ“ci kierunkowe 
+# zgodnie ze sÂ³ownikiem LM
 sentimentLM <- convertToDirection(sentiment$SentimentLM)
 
 
@@ -166,7 +166,7 @@ plot(sentimentLM)
 # Konwersja do ramki danych (ggplot wizualizuje ramki danych)
 df_LM <- data.frame(index = seq_along(sentimentLM), value = sentimentLM, Dictionary = "LM")
 
-# Usuniêcie wierszy, które zawieraj¹ NA
+# UsuniÃªcie wierszy, ktÃ³re zawierajÂ¹ NA
 df_LM <- na.omit(df_LM)
 
 ggplot(df_LM, aes(x = value)) +
@@ -179,20 +179,20 @@ ggplot(df_LM, aes(x = value)) +
 
 
 
-### S³ownik QDAP (Quantitative Discourse Analysis Package) ----
+### SÂ³ownik QDAP (Quantitative Discourse Analysis Package) ----
 #
-# zawiera listê s³ów pozytywnych i negatywnych
+# zawiera listÃª sÂ³Ã³w pozytywnych i negatywnych
 # do analizy dyskursu
 
 
-# Wczytaj s³ownik QDAP
+# Wczytaj sÂ³ownik QDAP
 qdap <- loadDictionaryQDAP()
 summary(qdap)
 
 
-# Konwersja ci¹g³ych wartoœci sentymentu 
-# na odpowiadaj¹ce im wartoœci kierunkowe 
-# zgodnie ze s³ownikiem QDAP
+# Konwersja ciÂ¹gÂ³ych wartoÅ“ci sentymentu 
+# na odpowiadajÂ¹ce im wartoÅ“ci kierunkowe 
+# zgodnie ze sÂ³ownikiem QDAP
 sentimentQDAP <- convertToDirection(sentiment$SentimentQDAP)
 
 
@@ -204,7 +204,7 @@ plot(sentimentQDAP)
 # Konwersja do ramki danych (ggplot wizualizuje ramki danych)
 df_QDAP <- data.frame(index = seq_along(sentimentQDAP), value = sentimentQDAP, Dictionary = "QDAP")
 
-# Usuniêcie wierszy, które zawieraj¹ NA
+# UsuniÃªcie wierszy, ktÃ³re zawierajÂ¹ NA
 df_QDAP <- na.omit(df_QDAP)
 
 ggplot(df_QDAP, aes(x = value)) +
@@ -216,7 +216,7 @@ ggplot(df_QDAP, aes(x = value)) +
 
 
 
-# Porównanie sentymentu na podstawie ró¿nych s³owników ----
+# PorÃ³wnanie sentymentu na podstawie rÃ³Â¿nych sÂ³ownikÃ³w ----
 
 # Minimalistycznie
 # plot(convertToDirection(sentiment$SentimentGI))
@@ -226,17 +226,17 @@ ggplot(df_QDAP, aes(x = value)) +
 
 
 # Wizualnie lepsze w ggplot2
-# Po³¹czenie poszczególnych ramek w jedn¹ ramkê
+# PoÂ³Â¹czenie poszczegÃ³lnych ramek w jednÂ¹ ramkÃª
 df_all <- bind_rows(df_GI, df_HE, df_LM, df_QDAP)
 
-# Tworzenie wykresu z podzia³em na s³owniki
+# Tworzenie wykresu z podziaÂ³em na sÂ³owniki
 ggplot(df_all, aes(x = value, fill = Dictionary)) +
   geom_bar(alpha = 0.7) + 
-  labs(title = "Skumulowany sentyment wed³ug s³owników",
+  labs(title = "Skumulowany sentyment wedÂ³ug sÂ³ownikÃ³w",
        x = "Sentyment",
        y = "Liczba") +
   theme_bw() +
-  facet_wrap(~Dictionary) +  # Podzia³ na cztery osobne wykresy
+  facet_wrap(~Dictionary) +  # PodziaÂ³ na cztery osobne wykresy
   scale_fill_manual(values = c("GI" = "green", 
                                "HE" = "blue", 
                                "LM" = "orange",
@@ -245,10 +245,10 @@ ggplot(df_all, aes(x = value, fill = Dictionary)) +
 
 
 
-# Agregowanie sentymentu z ró¿nych s³owników w czasie ----
+# Agregowanie sentymentu z rÃ³Â¿nych sÂ³ownikÃ³w w czasie ----
 
 
-# Sprawdzenie iloœci obserwacji
+# Sprawdzenie iloÅ“ci obserwacji
 length(sentiment[,1])
 
 
@@ -261,21 +261,21 @@ df_all <- data.frame(sentence=1:length(sentiment[,1]),
 
 
 
-# USUNIÊCIE BRAKUJ¥CYCH WARTOŒCI
-# gdy¿ wartoœci NA (puste) uniemo¿liwiaj¹ generowanie wykresu w ggplot
+# USUNIÃŠCIE BRAKUJÂ¥CYCH WARTOÅ’CI
+# gdyÂ¿ wartoÅ“ci NA (puste) uniemoÂ¿liwiajÂ¹ generowanie wykresu w ggplot
 #
 
-# Usuniêcie wartoœci NA
-# Wybranie tylko niekompletnych przypadków:
+# UsuniÃªcie wartoÅ“ci NA
+# Wybranie tylko niekompletnych przypadkÃ³w:
 puste <- df_all[!complete.cases(df_all), ]
 
 
-# Usuniêcie pustych obserwacji
-# np. dla zmiennej QDAP (wszystkie maj¹ NA)
+# UsuniÃªcie pustych obserwacji
+# np. dla zmiennej QDAP (wszystkie majÂ¹ NA)
 df_all <- df_all[!is.na(df_all$QDAP), ]
 
 
-# Sprawdzenie, czy wartoœci NA zosta³y usuniête
+# Sprawdzenie, czy wartoÅ“ci NA zostaÂ³y usuniÃªte
 # wtedy puste2 ma 0 wierszy:
 puste2 <- df_all[!complete.cases(df_all), ]
 puste2
@@ -283,7 +283,7 @@ puste2
 
 
 
-# Wykresy przedstawiaj¹ce ewolucjê sentymentu w czasie ----
+# Wykresy przedstawiajÂ¹ce ewolucjÃª sentymentu w czasie ----
 
 
 
@@ -292,7 +292,7 @@ ggplot(df_all, aes(x=sentence, y=QDAP)) +
   geom_line(aes(x=sentence, y=GI), color="green", size=1) +
   geom_line(aes(x=sentence, y=HE), color="blue", size=1) +
   geom_line(aes(x=sentence, y=LM), color="orange", size=1) +
-  labs(x = "Oœ czasu zdañ", y = "Sentyment") +
+  labs(x = "OÅ“ czasu zdaÃ±", y = "Sentyment") +
   theme_gdocs() + 
   ggtitle("Zmiana sentymentu w czasie")
 
@@ -303,7 +303,7 @@ ggplot(df_all, aes(x=sentence, y=QDAP)) +
   geom_smooth(aes(x=sentence, y=GI), color="green") +
   geom_smooth(aes(x=sentence, y=HE), color="blue") +
   geom_smooth(aes(x=sentence, y=LM), color="orange") +
-  labs(x = "Oœ czasu zdañ", y = "Sentyment") +
+  labs(x = "OÅ“ czasu zdaÃ±", y = "Sentyment") +
   theme_gdocs() + 
   ggtitle("Zmiana sentymentu w czasie")
 
